@@ -55,7 +55,7 @@ public class UserLogin {
                             System.out.println(Color.BLUE + "SUCCESSFULLY LOGGED IN" + Color.RESET);
                             loading();
                             Desktop.getDesktop().browse(new URI("https://youtu.be/q-Y0bnx6Ndw"));
-                        } else throw new InvalidUserNameOrPasswordException(Color.RED + "INVALID USERNAME OR PASSWORD" + Color.RESET);
+                        } else throw new InvalidUserNameOrPasswordException("INVALID USERNAME OR PASSWORD");
                     }
                     if (choice.equals("B")) registration(keyboardInput);
                     if (choice.equals("C")) {
@@ -99,17 +99,18 @@ public class UserLogin {
                     ██║  ██║███████╗╚██████╔╝██║███████║   ██║   ███████╗██║  ██║
                     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝\s
                     """);
-            System.out.print("Enter UserName: ");
+            System.out.print(Color.GREEN + "Enter Username: ");
             username = keyboardInput.nextLine().trim();
-            System.out.print("Enter Password: ");
+            System.out.print("Enter Password: " + Color.RESET);
             password = keyboardInput.nextLine().trim();
 
             if (containsSpecialCharacter(username) || containsSpecialCharacter(password)) {
                 throw new InvalidUserNameOrPasswordException("USERNAME OR PASSWORD SHOULD NOT CONTAIN ANY SPECIAL CHARACTER");
             }
+            else if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("PLEASE INSERT YOUR LOGIN CREDENTIALS PROPERLY");
             else {
                 File user = new File(filesDirectory + "\\" + username + "\\");
-                if (checkIfUserAlreadyExist.test(user) && (!user.equals(filesDirectory))) throw new UserAlreadyExistsException("USER ALREADY EXISTS");
+                if (checkIfUserAlreadyExist.test(user)) throw new UserAlreadyExistsException("USER ALREADY EXISTS");
                 else {
                     if (!invalidCredentials){
                         if (user.mkdir()) {
@@ -117,7 +118,8 @@ public class UserLogin {
                             writeToATextFile(username, new File(user.getPath() + "\\username.txt"));
                             writeToATextFile(password, new File(user.getPath() + "\\password.txt"));
                             writeToATextFile(newUser.toString(), UserLogin.records);
-                            System.out.println("USER ADDED SUCCESSFULLY");
+                            System.out.println(Color.BLUE + "USER ADDED SUCCESSFULLY" + Color.RESET);
+                            loading();
                         }
                     }
                 }
