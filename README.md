@@ -4,10 +4,10 @@ simple user login command line interface program
 <p align="left">
   <img src="https://github.com/pitzzahh/user-login/blob/main/main_menu.png" height="200"/>
 </p>
-<p align="top">
+<p align="left">
   <img src="https://github.com/pitzzahh/user-login/blob/main/login_menu.png" height="200"/>
 </p>
-<p align="right">
+<p align="left">
   <img src="https://github.com/pitzzahh/user-login/register_menu.png" height="200"/>
 </p>
 
