@@ -1,6 +1,11 @@
 # user-login
-simple user login command line interface program
+## simple user login command line interface program
+### The program contains handling exceptions for:
+* Invalid input (inputs that does not meet instructions, containing special characters, containing numbers, and blank inputs)
+* Invalid credentials (username or password)
+* User checking (if user already exists)
 
+## snapshots
 <p align="left">
   <img src="https://github.com/pitzzahh/user-login/blob/main/main_menu.png" height="200"/>
 </p>
