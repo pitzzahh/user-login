@@ -8,7 +8,7 @@ simple user login command line interface program
   <img src="https://github.com/pitzzahh/user-login/blob/main/login_menu.png" height="200"/>
 </p>
 <p align="left">
-  <img src="https://github.com/pitzzahh/user-login/register_menu.png" height="200"/>
+  <img src="https://github.com/pitzzahh/user-login/blob/main/register_menu.png" height="200"/>
 </p>
 
 ![GitHub Issues](https://img.shields.io/github/issues/pitzzahh/user-login)
