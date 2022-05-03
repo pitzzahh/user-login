@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Description("jdk version: 17")
 public class UserLogin {
-    private static final File records = new File("C:\\TaskPerf6Files\\records.txt");
-    private static final File filesDirectory = new File("C:\\TaskPerf6Files\\");
+    private static final File filesDirectory = new File(getOs());
+
+    private static final File records = new File(filesDirectory + "\\records.txt");
     public static void main(String[] args) throws IOException, InterruptedException {
-        Scanner keyboardInput = new Scanner(System.in);
         createDirectoryOnStart();
-        mainSelection(keyboardInput);
+        mainSelection(new Scanner(System.in));
     }
 
     /**
@@ -331,6 +331,17 @@ public class UserLogin {
         System.out.println();
     }
 
+    /**
+     * Method that returns a directory based on the current Operating System where this program is executed.
+     * @return a directory.
+     */
+    private static String getOs() {
+        String osName = System.getProperty("os.name", "").toUpperCase();
+        return osName.startsWith("WINDOWS") ? "C:\\Users\\" + getUserDirectory() + "\\TaskPerf6Files\\" : osName.startsWith("LINUX") ? "/home/" + getUserDirectory() + "/TaskPerf6Files/" : "UNKNOWN";
+    }
+    private static String getUserDirectory() {
+        return System.getProperty("user.name");
+    }
     /**
      * class that contains the instance variables that can be used to color text stream.
      */
