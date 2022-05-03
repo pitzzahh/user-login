@@ -21,7 +21,7 @@ class UserLoginTest {
     }
 
     @Test
-    void shouldLoginIfCredentialsAreInCorrect() throws FileNotFoundException {
+    void shouldNotLoginIfCredentialsAreInCorrect() throws FileNotFoundException {
         // given
         String username = "pitzzahh";
         String password = "!Password123";
