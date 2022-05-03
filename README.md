@@ -16,6 +16,7 @@
 * User checking (if a user already exists)
 ## Note: 
 * The directory where the files are stored is only available on Windows machines. No implementation for Mac and Linux machines. I don't know how.
+Will implement soon.
 ## snapshots
 <p align="left">
   <img src="https://github.com/pitzzahh/user-login/blob/main/main_menu.png" height="200"/>
