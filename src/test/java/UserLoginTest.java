@@ -19,7 +19,6 @@ class UserLoginTest {
         // then
         Assertions.assertTrue(login);
     }
-
     @Test
     void shouldNotLoginIfCredentialsAreInCorrect() throws FileNotFoundException {
         // given
