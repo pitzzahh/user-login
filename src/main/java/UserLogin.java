@@ -168,7 +168,7 @@ public class UserLogin {
      * @return {@code true} if the username and password matches the username and password from the file.
      * @throws FileNotFoundException if the credential files does not exist.
      */
-    private static boolean checkCredentials(File username, File password, String usernameAttempt, String passwordAttempt) throws FileNotFoundException {
+    public static boolean checkCredentials(File username, File password, String usernameAttempt, String passwordAttempt) throws FileNotFoundException {
         String extractedUsername = "";
         String extractedPassword = "";
         if (username.exists() && password.exists()) {
@@ -176,8 +176,12 @@ public class UserLogin {
             Scanner passwordScanner = new Scanner(password);
             extractedUsername = userNameScanner.next();
             extractedPassword = passwordScanner.next();
+            System.out.println("USERNAME: " + extractedUsername);
+            System.out.println("PASSWORD: " + extractedPassword);
+            System.out.println("USERNAME ATTEMPT: " + usernameAttempt);
+            System.out.println("PASSWORD ATTEMPT: " + passwordAttempt);
         }
-        return (username.exists() && password.exists()) && (usernameAttempt.equals(extractedUsername) || passwordAttempt.equals(extractedPassword));
+        return (username.exists() && password.exists()) && (usernameAttempt.equals(extractedUsername) && passwordAttempt.equals(extractedPassword));
     }
 
     /**
