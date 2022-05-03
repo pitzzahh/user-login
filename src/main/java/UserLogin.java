@@ -15,12 +15,17 @@ import java.util.concurrent.TimeUnit;
  */
 @Description("jdk version: 17")
 public class UserLogin {
-    private static final File filesDirectory = new File(getOs());
+    public static final String osName = System.getProperty("os.name", "").toUpperCase();
+    public static final File filesDirectory = new File(getOsDirectory());
 
-    private static final File records = new File(filesDirectory + "\\records.txt");
+    private static final File records = new File(filesDirectory + (osName.startsWith("WINDOWS") ? "\\records.txt" : osName.startsWith("LINUX") ? "/records.txt" : ""));
     public static void main(String[] args) throws IOException, InterruptedException {
-        createDirectoryOnStart();
-        mainSelection(new Scanner(System.in));
+        if (filesDirectory.toString().equals("UNKNOWN") && records.toString().equals("UNKNOWN")) System.out.println(Color.RED + "THE PROGRAM IS NOT COMPATIBLE WITH YOUR CURRENT OPERATING SYSTEM\n" + Color.RESET);
+        else {
+            createDirectoryOnStart();
+            mainSelection(new Scanner(System.in));
+        }
+        System.out.println(Color.BLUE + "THANK YOU " + Color.YELLOW + "FOR USING " + Color.PURPLE + "MY PROGRAM");
     }
 
     /**
@@ -58,10 +63,7 @@ public class UserLogin {
                         } else throw new InvalidUserNameOrPasswordException("INVALID USERNAME OR PASSWORD");
                     }
                     if (choice.equals("B")) registration(keyboardInput);
-                    if (choice.equals("C")) {
-                        System.out.println(Color.BLUE + "THANK YOU " + Color.YELLOW + "FOR USING " + Color.PURPLE + "MY PROGRAM");
-                        break;
-                    }
+                    if (choice.equals("C")) break;
                 }
                 else {
                     if (choice.isEmpty()) throw new BlankResponseException("BLANK CHOICE IS NOT ALLOWED");
@@ -109,7 +111,7 @@ public class UserLogin {
             }
             else if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("PLEASE INSERT YOUR LOGIN CREDENTIALS PROPERLY");
             else {
-                File user = new File(filesDirectory + "\\" + username + "\\");
+                File user = new File(filesDirectory + "\\" + (osName.startsWith("WINDOWS") ? "\\" + username + "\\" : osName.startsWith("LINUX") ? "/" +  username + "/" : ""));
                 if (checkIfUserAlreadyExist.test(user)) throw new UserAlreadyExistsException("USER ALREADY EXISTS");
                 else {
                     if (!invalidCredentials){
@@ -149,8 +151,8 @@ public class UserLogin {
         String username = keyboardInput.nextLine().trim();
         System.out.print("Enter Password: " + Color.RESET);
         String password = keyboardInput.nextLine().trim();
-        File usernameFile = new File(filesDirectory + "\\" + username + "\\username.txt");
-        File passwordFile = new File(filesDirectory + "\\" + username + "\\password.txt");
+        File usernameFile = new File(filesDirectory + (osName.startsWith("WINDOWS") ? "\\" + username + "\\username.txt" : osName.startsWith("LINUX") ? "/" +  username + "/username.txt" : ""));
+        File passwordFile = new File(filesDirectory + (osName.startsWith("WINDOWS") ? "\\" + username + "\\password.txt" : osName.startsWith("LINUX") ? "/" +  username + "/password.txt" : ""));
         try {
             return checkCredentials(usernameFile, passwordFile, username, password);
         } catch (FileNotFoundException fileNotFoundException) {
@@ -218,7 +220,7 @@ public class UserLogin {
      * @return {@code true} if the {@code String} passed in contains any special character.
      */
     private static boolean containsSpecialCharacter(String stringInput) {
-        Pattern pattern = Pattern.compile("[^a-z\\d]", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("[^a-z\\d^*&@]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(stringInput);
         return matcher.find();
     }
@@ -332,15 +334,20 @@ public class UserLogin {
     }
 
     /**
-     * Method that returns a directory based on the current Operating System where this program is executed.
-     * @return a directory.
+     * Method that returns a directory where the files should be stored.
+     * The directory will be particular to the operating system directory on which this program was executed.
+     * @return a directory denoted by a {@code String}. This directory returned will hold all the files for this program.
      */
-    private static String getOs() {
-        String osName = System.getProperty("os.name", "").toUpperCase();
-        return osName.startsWith("WINDOWS") ? "C:\\Users\\" + getUserDirectory() + "\\TaskPerf6Files\\" : osName.startsWith("LINUX") ? "/home/" + getUserDirectory() + "/TaskPerf6Files/" : "UNKNOWN";
+    public static String getOsDirectory() {
+        return osName.startsWith("WINDOWS") ? getUserDirectory() + "\\TaskPerf6Files\\" : osName.startsWith("LINUX") ? getUserDirectory() + "/TaskPerf6Files/" : "UNKNOWN";
     }
+
+    /**
+     * Method that gets the home directory of the current logged-in user.
+     * @return a {@code String} that contains the home directory of the user.
+     */
     private static String getUserDirectory() {
-        return System.getProperty("user.name");
+        return System.getProperty("user.home");
     }
     /**
      * class that contains the instance variables that can be used to color text stream.
