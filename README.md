@@ -1,6 +1,6 @@
 # user-login
 ## simple user login command line interface program
-* Credentials are stored in a specific folder in a computer directory on the ```C:\ ```drive
+* All the files can be found in the ```C:\ ```drive
 ```BASH
     C:\TaskPerf6Files\
 ```
@@ -9,6 +9,7 @@
 ```BASH
     C:\TaskPerf6Files\
 ```
+#### When the program runs on the first time, the directory will be created. If it does exist, it will ignore creating the directory.
 ### The program contains handling exceptions for:
 * Invalid input (inputs that do not meet instructions, containing special characters, containing numbers, and blank inputs)
 * Invalid credentials (username or password)
