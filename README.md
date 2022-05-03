@@ -9,9 +9,15 @@
     /home/<user>/TaskPerf6Files/
 ```
 * User credentials are stored in users own folder in ```C:\Users\<user>\TaskPerf6Files\ + username```. User folders are named the same as the username.
-* There is a text file called ```records``` that contains the summary of all user credentials. The text file is in
+* There is a text file called ```records``` that contains the summary of all user credentials.
+
+On a Windows machine the ```records``` files is stored in
 ```BASH
     C:\Users\<user>\TaskPerf6Files\
+```
+On a Linux machine the ```records``` files is stored in
+``` BASH
+    /home/<user>/TaskPerf6Files/
 ```
 #### When the program runs on the first time, the directory will be created. If it does exist, it will ignore creating the directory.
 ### The program contains handling exceptions for:
