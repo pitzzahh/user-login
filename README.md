@@ -6,7 +6,7 @@
 ```
 * On a Linux machine. All files can be found in
 ``` BASH
-    /home/<user>/TaskPerf6Files
+    /home/<user>/TaskPerf6Files/
 ```
 * User credentials are stored in users own folder in ```C:\Users\<user>\TaskPerf6Files\ + username```. User folders are named the same as the username.
 * There is a text file called ```records``` that contains the summary of all user credentials. The text file is in
