@@ -111,14 +111,14 @@ public class UserLogin {
             }
             else if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("PLEASE INSERT YOUR LOGIN CREDENTIALS PROPERLY");
             else {
-                File user = new File(filesDirectory + "\\" + (osName.startsWith("WINDOWS") ? "\\" + username + "\\" : osName.startsWith("LINUX") ? "/" +  username + "/" : ""));
+                File user = new File(filesDirectory + (osName.startsWith("WINDOWS") ? "\\" + username + "\\" : osName.startsWith("LINUX") ? "/" +  username + "/" : ""));
                 if (checkIfUserAlreadyExist.test(user)) throw new UserAlreadyExistsException("USER ALREADY EXISTS");
                 else {
                     if (!invalidCredentials){
                         if (user.mkdir()) {
                             User newUser = new User(username, password);
-                            writeToATextFile(username, new File(user.getPath() + "\\username.txt"));
-                            writeToATextFile(password, new File(user.getPath() + "\\password.txt"));
+                            writeToATextFile(username, new File(user.getPath() + (osName.startsWith("WINDOWS") ? "\\username.txt" : osName.startsWith("LINUX") ? "/username.txt" : "")));
+                            writeToATextFile(password, new File(user.getPath() + (osName.startsWith("WINDOWS") ? "\\password.txt" : osName.startsWith("LINUX") ? "/password.txt" : "")));
                             writeToATextFile(newUser.toString(), UserLogin.records);
                             System.out.println(Color.BLUE + "USER ADDED SUCCESSFULLY" + Color.RESET);
                             loading();
