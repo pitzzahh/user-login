@@ -176,10 +176,6 @@ public class UserLogin {
             Scanner passwordScanner = new Scanner(password);
             extractedUsername = userNameScanner.next();
             extractedPassword = passwordScanner.next();
-            System.out.println("USERNAME: " + extractedUsername);
-            System.out.println("PASSWORD: " + extractedPassword);
-            System.out.println("USERNAME ATTEMPT: " + usernameAttempt);
-            System.out.println("PASSWORD ATTEMPT: " + passwordAttempt);
         }
         return (username.exists() && password.exists()) && (usernameAttempt.equals(extractedUsername) && passwordAttempt.equals(extractedPassword));
     }
