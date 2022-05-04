@@ -8,14 +8,15 @@
 ``` BASH
     /home/<user>/TaskPerf6Files/
 ```
-* User credentials are stored in users own folder in ```C:\Users\<user>\TaskPerf6Files\ + username```. User folders are named the same as the username.
+* On a Windows machine. User credentials are stored in users own folder in ```C:\Users\<user>\TaskPerf6Files\ + username```. User folders are named the same as the username.
+* On a Linux machine. User credentials are stored in users own folder in ```/home/<user>/TaskPerf6Files/ + username```. User folders are named the same as the username.
 * There is a text file called ```records``` that contains the summary of all user credentials.
 
-On a Windows machine the ```records``` files is stored in
+On a Windows machine the ```records``` file is stored in
 ```BASH
     C:\Users\<user>\TaskPerf6Files\
 ```
-On a Linux machine the ```records``` files is stored in
+On a Linux machine the ```records``` file is stored in
 ``` BASH
     /home/<user>/TaskPerf6Files/
 ```
