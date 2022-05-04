@@ -216,7 +216,7 @@ public class UserLogin {
 
     /**
      * Method that returns {@code true} or {@code false} based on the {@code String} passed in.
-     * @param stringInput the {@code String} that might contain any special character.
+     * @param stringInput the {@code String} that might contain any special character. Except alphanumeric characters.
      * @return {@code true} if the {@code String} passed in contains any special character.
      */
     private static boolean containsSpecialCharacter(String stringInput) {
@@ -311,7 +311,8 @@ public class UserLogin {
     }
 
     /**
-     * class used for exception handling on special character answers.
+     * class used for exception handling on special character response.
+     * Except alphanumeric characters.
      * This class extends the {@code RuntimeException}
      */
     private static class SpecialCharacterResponseException extends RuntimeException {
