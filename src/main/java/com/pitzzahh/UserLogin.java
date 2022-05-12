@@ -1,3 +1,4 @@
+package com.pitzzahh;
 
 import java.io.*;
 import java.awt.*;
@@ -247,7 +248,7 @@ public class UserLogin {
         @Override
         public String toString() {
             return "Username = " + username + "\n" +
-                   "Password = " + password + "\n";
+                    "Password = " + password + "\n";
         }
     }
 
