@@ -20,7 +20,7 @@ public class UserLogin {
     private static final DatabaseConnection databaseConnection = new DatabaseConnection();
     public static void main(String[] args) throws IOException, InterruptedException {
         mainSelection(new Scanner(System.in));
-        System.out.println(Color.BLUE + "THANK YOU " + Color.YELLOW + "FOR USING " + Color.PURPLE + "MY PROGRAM");
+        System.out.println(Color.BLUE + "THANK YOU " + Color.YELLOW + "FOR USING " + Color.PURPLE + "MY PROGRAM" + Color.RESET);
     }
 
     /**
