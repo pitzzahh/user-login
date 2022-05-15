@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="user-login:jar">
+    <output-path>$PROJECT_DIR$/src/main/java/com/pitzzahh/jar</output-path>
+    <root id="archive" name="user-login.jar">
+      <element id="module-output" name="user-login" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/maven/maven-settings/3.8.5/maven-settings-3.8.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../OLD_FILES/JAVA_LIBRARIES/postgresql-42.3.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
