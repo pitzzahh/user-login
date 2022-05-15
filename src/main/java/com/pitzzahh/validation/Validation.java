@@ -30,7 +30,8 @@ public class Validation {
     /**
      * Function that validates if the username or password is valid.
      */
-    public static Predicate<String> isUserNameOrPasswordValid = credential -> !credential.matches("[^a-z\\d^*&@]");
+    // TODO fix bug (wrong regex)
+    public static Predicate<String> isUserNameOrPasswordValid = credential -> credential.matches("^(?=.*[a-zA-Z])(?=.*\\d)[A-za-z\\d]+$|^(?=.*[a-zA-Z])[A-Za-z]+$");
 
     /**
      * Function that validates if the user already exists in the table
