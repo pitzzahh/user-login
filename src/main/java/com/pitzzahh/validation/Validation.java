@@ -65,8 +65,7 @@ public class Validation {
     /**
      * Function that returns a query for getting the password from the table.
      */
-    public static Function<String, String> getPasswordQuery =
-            username -> "SELECT password FROM credentials WHERE user_name = " + "'" + username + "'";
+    public static Function<String, String> getPasswordQuery = username -> "SELECT password FROM credentials WHERE user_name = " + "'" + username + "'";
 
     /**
      * Method that inserts data from the table.
