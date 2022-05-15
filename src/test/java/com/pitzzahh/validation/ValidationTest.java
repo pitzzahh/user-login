@@ -9,12 +9,23 @@ class ValidationTest {
     @Test
     void shouldPassIfUserNameIsValid() {
         // given
-        String username = "Password@123";
+        String username = "pitzzahh@123";
         // when
         boolean result = Validation.isUserNameOrPasswordValid.test(username);
         // then
         Assertions.assertTrue(result);
     }
+
+    @Test
+    void shouldPassIfPasswordIsValid() {
+        // given
+        String password = "Password@123";
+        // when
+        boolean result = Validation.isUserNameOrPasswordValid.test(password);
+        // then
+        Assertions.assertTrue(result);
+    }
+
     @Test
     void shouldPassIfUserNameExist() {
         // given
@@ -47,7 +58,7 @@ class ValidationTest {
     void shouldPassIfPasswordIsFound() {
         // given
         String username = "pitzzahh";
-        String expectedPassword = "!Password123";
+        String expectedPassword = "Passw0rd@123";
         DatabaseConnection.CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
                                                     "user_name VARCHAR(20) NOT NULL PRIMARY KEY," +
                                                     "password VARCHAR(20) NOT NULL);";
