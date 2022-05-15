@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="user-login:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/user_login_jar</output-path>
+  <artifact type="jar" name="login:jar">
+    <output-path>$PROJECT_DIR$/../../Pictures</output-path>
     <root id="archive" name="user-login.jar">
       <element id="module-output" name="user-login" />
     </root>
