@@ -1,23 +1,18 @@
 package com.pitzzahh.database;
 
 import java.sql.*;
-import java.util.ArrayList;
-import com.pitzzahh.entity.User;
-
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import com.pitzzahh.exception.UserAlreadyExistsException;
+import java.util.function.*;
 
 public class DatabaseConnection {
-    private static final String USERS_CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
-                                                               "user_name VARCHAR(20) NOT NULL PRIMARY KEY," +
-                                                               "password VARCHAR(20) NOT NULL);";
+
+    public static String TABLE_NAME;
+    public static String CREATE_TABLE_STATEMENT;
     public DatabaseConnection() {
         try {
             Consumer<Connection> createTable = connection -> {
                 try {
-                    connection.prepareStatement(USERS_CREATE_TABLE_STATEMENT).executeUpdate();
+                    TABLE_NAME = getTableName(CREATE_TABLE_STATEMENT);
+                    connection.prepareStatement(CREATE_TABLE_STATEMENT).executeUpdate();
                     connection.close();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -34,11 +29,14 @@ public class DatabaseConnection {
      * Method that connects to the PostgreSQL database.
      * @return a Connection object.
      */
-    private Connection connect() {
+    public Connection connect() {
         Connection connection = null;
         try {
-            final String URL = "jdbc:postgresql://localhost:5432/peter";
-            connection = DriverManager.getConnection(URL, "peter", "!Password123");
+            final String DATABASE = "peter";
+            final String USERNAME = "peter";
+            final String PASSWORD = "!Password123";
+            final String URL = "jdbc:postgresql://localhost:5432/" + DATABASE;
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
@@ -46,62 +44,37 @@ public class DatabaseConnection {
     }
 
     /**
-     * Method that inserts values into the table.
-     * @param userName the username of a user to be inserted in the user_name column in the table.
-     * @param password the password of a user to be inserted in the password column in the table.
+     * Function that returns a query based on the given parameter table.
      */
-    public void insertValues(String userName, String password)  {
-        final String INSERT_STATEMENT = "INSERT INTO credentials (user_name, password) VALUES (?, ?);";
-        try {
-            PreparedStatement preparedStatement = connect().prepareStatement(INSERT_STATEMENT);
-            preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, password);
-//            System.out.println(preparedStatement);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(new UserAlreadyExistsException(userName).getMessage());
-        } catch (NullPointerException ignored) {}
+    private static final Function<String, String> getAllDataQuery = tableName -> "SELECT * FROM " + tableName;
+
+    /**
+     * Method that gets the table name from the {@code CREATE_TABLE_STATEMENT}
+     * @param statement the {@code CREATE_TABLE_STATEMENT}
+     * @return the name of the table in the database.
+     */
+    private static String getTableName(String statement) {
+        int[] subStrings = {statement.contains("EXISTS") ? statement.indexOf("EXISTS") + 6 : statement.indexOf("exists") + 6, statement.indexOf("(") - 1};
+        return statement.substring(subStrings[0], subStrings[1]).trim();
     }
 
     /**
-     * Function that returns a query based on the given parameter table.
+     * Method that gets all the columns in the table.
+     * @return {@code String[]} an array containing all the columns of the table.
      */
-    private static final Function<String, String> getAllData = tableName -> "SELECT * FROM " + tableName;
-
-    /**
-     * Function that returns a query based on the given parameter table.
-     */
-    private static final BiFunction<String, String, String> getUserPassword = (tableName, username) -> "SELECT password FROM " + tableName + " WHERE user_name = " + '\'' +  username + '\'';
-    /**
-     * Function that retrieves data from the table.
-     * First argument is the number of rows to be retrieved.
-     * Second argument is the name of the table on the com.pitzzahh.database.
-     */
-    public Function<String, ArrayList<User>> retrieveUsersData = tableName -> {
-        ArrayList<User> arrayList = new ArrayList<>();
+    public String[] getAllColumn() {
         try {
-            Statement statement = connect().createStatement();
-            ResultSet resultSet = statement.executeQuery(getAllData.apply(tableName));
-            while (resultSet.next()) {
-                arrayList.add(new User(
-                        resultSet.getString("user_name"),
-                        resultSet.getString("password")));
+            System.out.println("List of column names in the current table: " + TABLE_NAME);
+            ResultSetMetaData resultSetMetaData = connect().createStatement().executeQuery(getAllDataQuery.apply(TABLE_NAME)).getMetaData();
+            int count = resultSetMetaData.getColumnCount();
+            String[] columns = new String[count];
+            for(int i = 1; i <= count; i++) {
+                columns[i - 1] = resultSetMetaData.getColumnName(i);
             }
-            return arrayList;
-        } catch (SQLException | NullPointerException exception) {
-            System.out.println(exception.getMessage());
-        }
-        return new ArrayList<>();
-    };
-    public final Function<String, String> getPassword = username -> {
-        try {
-            Statement statement = connect().createStatement();
-            ResultSet resultSet = statement.executeQuery(getUserPassword.apply("credentials", username));
-            if (resultSet.next()) return resultSet.getString("password");
+            return columns;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "0";
-    };
+    }
 }
 
