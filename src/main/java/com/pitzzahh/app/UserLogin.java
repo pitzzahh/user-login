@@ -98,8 +98,8 @@ public class UserLogin {
             username = keyboardInput.nextLine().trim();
             System.out.print("Enter Password: " + Color.RESET);
             password = keyboardInput.nextLine().trim();
-            if (Validation.isUserNameOrPasswordValid.negate().test(username) ||
-                Validation.isUserNameOrPasswordValid.negate().test(password)) throw new InvalidUserNameOrPasswordException("ALPHANUMERICAL CHARACTERS ONLY");
+            if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("BLANK FIELDS NOT ALLOWED");
+            else if (Validation.isUserNameOrPasswordValid.negate().test(username) || Validation.isUserNameOrPasswordValid.negate().test(password)) throw new InvalidUserNameOrPasswordException("ALPHANUMERICAL CHARACTERS ONLY");
             else {
                 if (Validation.doesUserNameExist.test(username, databaseConnection)) throw new UserAlreadyExistsException("USER: " + username);
                 Validation.insertData(databaseConnection, username, password);
@@ -132,9 +132,8 @@ public class UserLogin {
         System.out.print("Enter Password: " + Color.RESET);
         String password = keyboardInput.nextLine().trim();
         try {
-            if (Validation.doesUserNameExist.negate().test(username, databaseConnection)) {
-                throw new UserNotFoundException();
-            }
+            if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("BLANK FIELDS NOT ALLOWED");
+            else if (Validation.doesUserNameExist.negate().test(username, databaseConnection)) throw new UserNotFoundException();
             return (Validation.getUserName(databaseConnection, username).equals(username) && Validation.getPassword(databaseConnection, username).equals(password));
         } catch (RuntimeException runtimeException) {
             System.out.println(Color.RED + runtimeException.getMessage() + Color.RESET);
