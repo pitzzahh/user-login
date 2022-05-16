@@ -1,5 +1,6 @@
 package com.pitzzahh.validation;
 
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import com.pitzzahh.database.DatabaseConnection;
@@ -11,7 +12,7 @@ class ValidationTest {
         // given
         String username = "pitzzahh@123";
         // when
-        boolean result = Validation.isUserNameOrPasswordValid.test(username);
+        boolean result = Validation.isUserNameValid.test(username);
         // then
         Assertions.assertTrue(result);
     }
@@ -21,9 +22,29 @@ class ValidationTest {
         // given
         String password = "Password@123";
         // when
-        boolean result = Validation.isUserNameOrPasswordValid.test(password);
+        boolean result = Validation.isPasswordValid.test(password);
         // then
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    void shouldPassIfPasswordIsInValidAndContainsOnlyLowerCaseLetters() {
+        // given
+        String password = "password";
+        // when
+        boolean result = Validation.isPasswordValid.test(password);
+        // then
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    void shouldPassIfPasswordIsInValidAndContainsOnlyUpperCaseLetters() {
+        // given
+        String password = "PASSWORD";
+        // when
+        boolean result = Validation.isPasswordValid.test(password);
+        // then
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -86,5 +107,14 @@ class ValidationTest {
         String passwordResult = Validation.getPassword(databaseConnection, username);
         // then
         Assertions.assertEquals(expectedResult, userNameResult + passwordResult);
+    }
+    @Test
+    void validDiscordUserName() {
+        // given
+        String username = "Pitzzahh@9139";
+        // when
+        boolean result = Pattern.compile("^.{3,32}@&*\\d{4}$").matcher(username).find();
+        // then
+        Assertions.assertTrue(result);
     }
 }
