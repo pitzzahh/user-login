@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.BiPredicate;
+import java.util.regex.Pattern;
+
 import com.pitzzahh.database.DatabaseConnection;
 import com.pitzzahh.exception.UserNotFoundException;
 import com.pitzzahh.exception.UserAlreadyExistsException;
@@ -31,7 +33,7 @@ public class Validation {
      * Function that validates if the username or password is valid.
      */
     // TODO fix bug (wrong regex)
-    public static Predicate<String> isUserNameOrPasswordValid = credential -> credential.matches("^(?=.*[a-zA-Z])(?=.*\\d)[A-za-z\\d]+$|^(?=.*[a-zA-Z])[A-Za-z]+$");
+    public static Predicate<String> isUserNameOrPasswordValid = credential -> Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[A-za-z\\d]+$|^(?=.*[a-zA-Z])[A-Za-z]+$").matcher(credential).matches();
 
     /**
      * Function that validates if the user already exists in the table
