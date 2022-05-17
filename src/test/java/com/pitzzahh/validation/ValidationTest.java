@@ -19,7 +19,7 @@ class ValidationTest {
     @Test
     void shouldPassIfPasswordIsValid() {
         // given
-        String password = "Password@123";
+        String password = "!P4ssW0rd@69";
         // when
         boolean result = Validation.isPasswordValid.test(password);
         // then
@@ -90,7 +90,7 @@ class ValidationTest {
     }
 
     @Test
-    void shouldPassIfTheDataIsSuccessfullyInsertedInTheTable() {
+    void shouldPassIfTheDataIsFoundFromTheTableAndEqualsToExpectedCredentials() {
         // given
         String username = "abunjing";
         String password = "Passw0rd@123";
@@ -108,9 +108,9 @@ class ValidationTest {
         Assertions.assertEquals(expectedResult, userNameResult + passwordResult);
     }
     @Test
-    void validDiscordUserName() {
+    void shouldPassIfStringContainsSpecialCharacters() {
         // given
-        String username = "pitzzahh@123";
+        String username = "pitzzahh@123!";
         // when
         boolean result = Validation.containsSpecialCharacters.test(username);
         // then
