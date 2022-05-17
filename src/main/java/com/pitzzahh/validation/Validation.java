@@ -2,12 +2,11 @@ package com.pitzzahh.validation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 import java.sql.PreparedStatement;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.BiPredicate;
-import java.util.regex.Pattern;
-
 import com.pitzzahh.database.DatabaseConnection;
 import com.pitzzahh.exception.UserNotFoundException;
 import com.pitzzahh.exception.UserAlreadyExistsException;
