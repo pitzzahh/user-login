@@ -63,7 +63,7 @@ public class UserLogin {
                 else {
                     if (choice.isEmpty()) throw new BlankResponseException("BLANK CHOICE IS NOT ALLOWED");
                     else if (Validation.isNumber(choice)) throw new NumberResponseException("NUMBER RESPONSE IS NOT ALLOWED");
-                    else if (Validation.isUserNameOrPasswordValid.negate().test(choice)) throw new SpecialCharacterResponseException("SPECIAL CHARACTER RESPONSE NOT ALLOWED");
+                    else if (Validation.containsSpecialCharacters.negate().test(choice)) throw new SpecialCharacterResponseException("SPECIAL CHARACTER RESPONSE NOT ALLOWED");
                     throw new InvalidLetterResponseException("PLEASE CHOOSE:       A or B or C       ONLY");
                 }
             } catch (RuntimeException runtimeException) {
@@ -99,7 +99,7 @@ public class UserLogin {
             System.out.print("Enter Password: " + Color.RESET);
             password = keyboardInput.nextLine().trim();
             if (username.isEmpty() || password.isEmpty()) throw new BlankResponseException("BLANK FIELDS NOT ALLOWED");
-            else if (Validation.isUserNameOrPasswordValid.negate().test(username) || Validation.isUserNameOrPasswordValid.negate().test(password)) throw new InvalidUserNameOrPasswordException("ALPHANUMERICAL CHARACTERS ONLY");
+            else if (Validation.isUserNameValid.negate().test(username) || Validation.isPasswordValid.negate().test(password)) throw new InvalidUserNameOrPasswordException("ALPHANUMERICAL CHARACTERS ONLY");
             else {
                 if (Validation.doesUserNameExist.test(username, databaseConnection)) throw new UserAlreadyExistsException("USER: " + username);
                 Validation.insertData(databaseConnection, username, password);
