@@ -65,7 +65,7 @@ class ValidationTest {
         // given
         String userNameToCheck = "beluga";
         DatabaseConnection.CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
-                                                    "user_name VARCHAR(20) NOT NULL PRIMARY KEY," +
+                                                    "user_name VARCHAR(15) NOT NULL PRIMARY KEY," +
                                                     "password VARCHAR(20) NOT NULL);";
         DatabaseConnection databaseConnection = new DatabaseConnection();
         // when
@@ -78,7 +78,7 @@ class ValidationTest {
     void shouldPassIfPasswordIsFound() {
         // given
         String username = "pitzzahh";
-        String expectedPassword = "Passw0rd@123";
+        String expectedPassword = "!P4ssW0rd@123";
         DatabaseConnection.CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
                                                     "user_name VARCHAR(20) NOT NULL PRIMARY KEY," +
                                                     "password VARCHAR(20) NOT NULL);";
@@ -92,10 +92,10 @@ class ValidationTest {
     @Test
     void shouldPassIfTheDataIsFoundFromTheTableAndEqualsToExpectedCredentials() {
         // given
-        String username = "abunjing";
-        String password = "Passw0rd@123";
+        String username = "pitzzahh";
+        String password = "!P4ssW0rd@123";
 
-        String expectedResult = "abunjingPassw0rd@123";
+        String expectedResult = username + password;
 
         DatabaseConnection.CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
                                                     "user_name VARCHAR(20) NOT NULL PRIMARY KEY," +
