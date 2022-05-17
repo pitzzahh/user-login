@@ -30,11 +30,44 @@ public class Validation {
     }
 
     /**
-     * Function that validates if the username or password is valid.
+     * Function that validates if the username is valid.
+     * <blockquote>
+     *     Valid username should have
+     *     <pre>
+     *      Anything
+     *
+     *      Minimum of 5 characters
+     *      Maximum of 15 characters
+     *
+     *      Example: pitzzahh
+     * </pre>
+     * What to test: username when registering
+     * </blockquote>
      */
     public static Predicate<String> isUserNameValid = username -> Pattern.compile(".{5,15}").matcher(username).find();
-    public static Predicate<String> isPasswordValid = password -> Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$ %^&*-]).{8,}$").matcher(password).find();
-    public static Predicate<String> containsSpecialCharacters = string -> Pattern.compile("[^a-zA-Z\\d]").matcher(string).find();
+
+    /**
+     * Function that validates if the password is valid
+     * <blockquote>
+     *     Valid password should have
+     *     <pre>
+     *      An uppercase letter
+     *      A lowercase letter
+     *      A number
+     *      Any special character
+     *      Minimum of 10 characters
+     *      Maximum of 20 characters
+     *      Example: !P4ssW0rd@69
+     * </pre>
+     * What to test: password when registering
+     * </blockquote>
+     */
+    public static Predicate<String> isPasswordValid = password -> Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$ %^&*-]).{10,20}$").matcher(password).find();
+
+    /**
+     * Function that validates if a {@code String} contains any special characters
+     */
+    public static Predicate<String> containsSpecialCharacters = string -> Pattern.compile("(?![^a-zA-Z\\d])").matcher(string).find();
 
     /**
      * Function that validates if the user already exists in the table
