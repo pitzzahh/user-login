@@ -6,7 +6,9 @@ import java.util.function.*;
 public class DatabaseConnection {
 
     public static String TABLE_NAME;
-    public static String CREATE_TABLE_STATEMENT;
+    public static String CREATE_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS credentials (" +
+                                                  "user_name VARCHAR(15) NOT NULL PRIMARY KEY," +
+                                                  "password VARCHAR(20) NOT NULL);";
     public DatabaseConnection() {
         try {
             Consumer<Connection> createTable = connection -> {
