@@ -67,7 +67,7 @@ public class Validation {
     /**
      * Function that validates if a {@code String} contains any special characters
      */
-    public static Predicate<String> containsSpecialCharacters = string -> Pattern.compile("(?![^a-zA-Z\\d])").matcher(string).find();
+    public static Predicate<String> containsSpecialCharacters = string -> Pattern.compile("[^a-zA-Z\\d]").matcher(string).find();
 
     /**
      * Function that validates if the user already exists in the table
