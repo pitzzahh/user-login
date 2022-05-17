@@ -1,6 +1,5 @@
 package com.pitzzahh.validation;
 
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import com.pitzzahh.database.DatabaseConnection;
@@ -10,7 +9,7 @@ class ValidationTest {
     @Test
     void shouldPassIfUserNameIsValid() {
         // given
-        String username = "pitzzahh@123";
+        String username = "Pitzzz";
         // when
         boolean result = Validation.isUserNameValid.test(username);
         // then
@@ -111,9 +110,9 @@ class ValidationTest {
     @Test
     void validDiscordUserName() {
         // given
-        String username = "Pitzzahh@9139";
+        String username = "pitzzahh@123";
         // when
-        boolean result = Pattern.compile("^.{3,32}@&*\\d{4}$").matcher(username).find();
+        boolean result = Validation.containsSpecialCharacters.test(username);
         // then
         Assertions.assertTrue(result);
     }
