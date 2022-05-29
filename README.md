@@ -2,16 +2,16 @@
 ## simple user login command line interface program
 * On a Windows machine. All the files can be found in the ```C:\ ```drive
 ```BASH
-    C:\Users\<user>\TaskPerf6Files\
+    C:\TaskPerf6Files\
 ```
 
-* On a Windows machine. User credentials are stored in users own folder in ```C:\Users\<user>\TaskPerf6Files\ + username```. User folders are named the same as the username.
+* On a Windows machine. User credentials are stored in users own folder in ```C:\TaskPerf6Files\ + username```. User folders are named the same as the username.
 
 * There is a text file called ```records``` that contains the summary of all user credentials.
 
 On a Windows machine the ```records``` file is stored in
 ```BASH
-    C:\Users\<user>\TaskPerf6Files\
+    C:\TaskPerf6Files\
 ```
 
 #### When the program runs on the first time, the directory will be created. If it does exist, it will ignore creating the directory.
