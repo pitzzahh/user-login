@@ -23,7 +23,8 @@ public class UserLogin {
         if (filesDirectory.toString().equals("UNKNOWN") && records.toString().equals("UNKNOWN")) System.out.println(Color.RED + "THE PROGRAM IS NOT COMPATIBLE WITH YOUR CURRENT OPERATING SYSTEM\n" + Color.RESET);
         else {
             createDirectoryOnStart();
-            mainSelection(new Scanner(System.in));
+            UserLogin main = new UserLogin();
+            main.mainSelection(new Scanner(System.in));
         }
         System.out.println(Color.BLUE + "THANK YOU " + Color.YELLOW + "FOR USING " + Color.PURPLE + "MY PROGRAM");
     }
@@ -33,18 +34,11 @@ public class UserLogin {
      * @param keyboardInput scanner needed for user input.
      * @throws IOException if one of the files or directory does not exist.
      */
-    private static void mainSelection(Scanner keyboardInput) throws IOException, InterruptedException {
+    // TODO improve user interface. interface too plain.
+    private void mainSelection(Scanner keyboardInput) throws IOException, InterruptedException {
         while (true) {
             try {
-                System.out.println(Color.PURPLE + """
-                        \s
-                        ██╗   ██╗███████╗███████╗██████╗     ██╗      ██████╗  ██████╗ ██╗███╗   ██╗
-                        ██║   ██║██╔════╝██╔════╝██╔══██╗    ██║     ██╔═══██╗██╔════╝ ██║████╗  ██║
-                        ██║   ██║███████╗█████╗  ██████╔╝    ██║     ██║   ██║██║  ███╗██║██╔██╗ ██║
-                        ██║   ██║╚════██║██╔══╝  ██╔══██╗    ██║     ██║   ██║██║   ██║██║██║╚██╗██║
-                        ╚██████╔╝███████║███████╗██║  ██║    ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║
-                         ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝ \s
-                        """);
+                System.out.println(Color.PURPLE + "USER LOGIN");
                 final String LETTER_A = Color.BLUE + " A " + Color.RESET;
                 final String LETTER_B = Color.YELLOW + " B " + Color.RESET;
                 final String LETTER_C = Color.RED + " C " + Color.RESET;
@@ -88,19 +82,13 @@ public class UserLogin {
      * @param keyboardInput scanner needed for user input.
      * @throws IOException if one of the files or directory does not exist.
      */
-    private static void registration(Scanner keyboardInput) throws IOException, InterruptedException {
+    // TODO improve user interface. interface too plain.
+    private void registration(Scanner keyboardInput) throws IOException, InterruptedException {
         try {
             String username;
             String password;
             boolean invalidCredentials = false;
-            System.out.println(Color.YELLOW + """
-                    ██████╗ ███████╗ ██████╗ ██╗███████╗████████╗███████╗██████╗\s
-                    ██╔══██╗██╔════╝██╔════╝ ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗
-                    ██████╔╝█████╗  ██║  ███╗██║███████╗   ██║   █████╗  ██████╔╝
-                    ██╔══██╗██╔══╝  ██║   ██║██║╚════██║   ██║   ██╔══╝  ██╔══██╗
-                    ██║  ██║███████╗╚██████╔╝██║███████║   ██║   ███████╗██║  ██║
-                    ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝\s
-                    """);
+            System.out.println(Color.YELLOW + "REGISTER");
             System.out.print(Color.GREEN + "Enter Username: ");
             username = keyboardInput.nextLine().trim();
             System.out.print("Enter Password: " + Color.RESET);
@@ -137,16 +125,9 @@ public class UserLogin {
      * @param keyboardInput scanner needed for user input.
      * @return {@code true} if the inputted credentials matches the real credentials.
      */
+    // TODO improve user interface. interface too plain.
     private static boolean login(Scanner keyboardInput) throws UserNotFoundException {
-        System.out.println(Color.BLUE + """
-                \s
-                ██╗      ██████╗  ██████╗ ██╗███╗   ██╗
-                ██║     ██╔═══██╗██╔════╝ ██║████╗  ██║
-                ██║     ██║   ██║██║  ███╗██║██╔██╗ ██║
-                ██║     ██║   ██║██║   ██║██║██║╚██╗██║
-                ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║
-                ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝\s
-                """);
+        System.out.println(Color.BLUE + "LOGIN");
         System.out.print(Color.GREEN + "Enter Username: ");
         String username = keyboardInput.nextLine().trim();
         System.out.print("Enter Password: " + Color.RESET);
@@ -170,6 +151,7 @@ public class UserLogin {
      * @return {@code true} if the username and password matches the username and password from the file.
      * @throws FileNotFoundException if the credential files does not exist.
      */
+    // TODO fix checking of credentials
     public static boolean checkCredentials(File username, File password, String usernameAttempt, String passwordAttempt) throws FileNotFoundException {
         String extractedUsername = "";
         String extractedPassword = "";
@@ -239,15 +221,40 @@ public class UserLogin {
     }
 
     /**
-     * A record makes the code clean. getters, setters and other methods
-     * are automatically generated as well us hashcode, toString and equals method.
+     * A class makes the code clean. getters, setters and other methods
+     * are automatically generated as well us hash code, toString and equals method.
      * I made my own implementation of toString() method.
      */
-    private record User(String username, String password) {
+
+    private class User {
+        private String username;
+        private String password;
+
+        public User(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
         @Override
         public String toString() {
             return "Username = " + username + "\n" +
-                   "Password = " + password + "\n";
+                    "Password = " + password + "\n";
         }
     }
 
